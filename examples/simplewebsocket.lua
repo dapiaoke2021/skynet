@@ -23,6 +23,7 @@ if MODE == "agent" then
 
     function handle.message(id, msg, msg_type)
         assert(msg_type == "binary" or msg_type == "text")
+	log.debug("recv msg:{}", msg)
         websocket.write(id, msg)
     end
 
@@ -74,6 +75,7 @@ else
 
     skynet.start(function ()
         local agent = {}
+	print("SERVICE_NAME:", SERVICE_NAME)
         for i= 1, 20 do
             agent[i] = skynet.newservice(SERVICE_NAME, "agent")
         end
